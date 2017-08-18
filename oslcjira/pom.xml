@@ -25,7 +25,13 @@
             <id>lyo-releases</id>
             <url>https://repo.eclipse.org/content/repositories/lyo-releases/</url>
         </repository>
+
+        <repository>
+          <id>maven.atlassian.com</id>
+          <url>https://atlassianuseast1.jfrog.io/atlassianuseast1/maven-public</url>
+        </repository>
     </repositories>
+
     <dependencies>
         <!-- Add dependency on jira-core if you want access to JIRA implementation classes as well as the sanctioned API. -->
         <!-- This is not normally recommended, but may be required eg when migrating a plugin originally developed against JIRA 4.x -->
@@ -193,7 +199,18 @@
         -->
     </dependencies>
     <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.atlassian.maven.plugins</groupId>
+              <artifactId>maven-jira-plugin</artifactId>
+              <version>${amps.version}</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+
         <plugins>
+<!--
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-jira-plugin</artifactId>
@@ -202,7 +219,7 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
-                    <!-- Uncomment to install TestKit backdoor in JIRA. -->
+                    <!- Uncomment to install TestKit backdoor in JIRA. -->
                     <!--
       			<pluginArtifacts>
       				<pluginArtifact>
@@ -211,9 +228,10 @@
       					<version>${testkit.version}</version>
       				</pluginArtifact>
       			</pluginArtifacts>
-      			-->
+
                 </configuration>
             </plugin>
+-->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -226,8 +244,8 @@
     </build>
     <properties>
         <buildDirectory>${project.basedir}/target</buildDirectory>
-        <jira.version>7.1.4</jira.version>
-        <amps.version>5.0.4</amps.version>
+        <jira.version>7.1.0</jira.version>
+        <amps.version>3.9.2</amps.version>
         <plugin.testrunner.version>1.2.0</plugin.testrunner.version>
         <!-- TestKit version 5.x for JIRA 5.x, 6.x for JIRA 6.x -->
         <testkit.version>5.2.26</testkit.version>
